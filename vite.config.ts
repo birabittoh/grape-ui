@@ -10,10 +10,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/': {
+      '/api/sorter': {
         target: process.env.SORTER_INSTANCE,
         headers: process.env.TOKEN ? { 'Authorization': process.env.TOKEN } : undefined,
         changeOrigin: true,
+        rewrite: path => path.replace(/sorter\//, ''),
+      },
+      '/api': {
+        target: process.env.GRAPE_INSTANCE,
       },
     },
   },

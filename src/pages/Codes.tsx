@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import '../App.css'
 import { Code } from '../types'
 import { formatBool } from '../common'
+import { claimCodes } from '../utils'
 
 function Codes() {
   const [codes, setCodes] = useState<Code[]>([])
@@ -12,7 +13,7 @@ function Codes() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/codes?tag=${tag}&done=${done}`)
+    fetch(`/api/sorter/codes?tag=${tag}&done=${done}`)
       .then(response => response.json())
       .then(data => {
         setCodes(data);
@@ -30,7 +31,7 @@ function Codes() {
       })
       .catch(error => console.error('Error fetching data:', error))
       .finally(() => setLoading(false))
-  }, [tag, tags, done])
+  }, [tag, done])
 
   return (
     <>
@@ -63,6 +64,7 @@ function Codes() {
                 <th>Website</th>
                 <th>Tag</th>
                 <th>Done</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -72,6 +74,11 @@ function Codes() {
                   <td>{code.website}</td>
                   <td>{code.attachment?.tag}</td>
                   <td>{formatBool(code.done)}</td>
+                  <td>
+                    {!code.done && (
+                      <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes([code], code.attachment?.tag) }}>Claim</a>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

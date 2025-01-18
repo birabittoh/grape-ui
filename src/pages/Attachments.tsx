@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import '../App.css'
 import { Attachment } from '../types'
 import { formatBool } from '../common'
-import { getAmount, getWebsites, isDone } from '../utils'
+import { getAmount, getWebsites, isDone, claimCodes } from '../utils'
 
 function Attachments() {
   const [attachments, setAttachments] = useState<Attachment[]>([])
@@ -13,7 +13,7 @@ function Attachments() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/attachments?tag=${tag}&done=${done}`)
+    fetch(`/api/sorter/attachments?tag=${tag}&done=${done}`)
       .then(response => response.json())
       .then(data => {
         setAttachments(data)
@@ -31,7 +31,7 @@ function Attachments() {
         console.error('Error fetching data:', error)
       })
       .finally(() => setLoading(false))
-  }, [tag, tags, done])
+  }, [tag, done])
 
   return (
     <>
@@ -65,6 +65,7 @@ function Attachments() {
                 <th>Website</th>
                 <th>Tag</th>
                 <th>Done</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -75,6 +76,11 @@ function Attachments() {
                   <td>{getWebsites(attachment)}</td>
                   <td>{attachment?.tag}</td>
                   <td>{formatBool(isDone(attachment))}</td>
+                  <td>
+                    {!isDone(attachment) && (
+                      <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes(attachment?.codes ?? [], attachment?.tag) }}>Claim</a>
+                    )}
+                    </td>
                 </tr>
               ))}
             </tbody>

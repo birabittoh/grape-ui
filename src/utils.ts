@@ -1,4 +1,4 @@
-import { Attachment } from "./types";
+import { Attachment, Code } from "./types";
 
 export function getAmount(attachment: Attachment): number {
     return attachment.codes?.reduce((acc, code) => acc + code.value, 0) ?? 0;
@@ -11,4 +11,21 @@ export function getWebsites(attachment: Attachment): string {
 
 export function isDone(attachment: Attachment): boolean {
     return attachment.codes?.every(code => code.done) ?? false;
+}
+
+export async function claimCodes(codes: Code[], tag: string | undefined): Promise<boolean> {
+    if (!tag) {
+        return false;
+    }
+
+    const payload = codes.map(code => {return {...code, tag}})
+    return fetch('/api/dumper/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.ok)
+    .catch(() => false);
 }

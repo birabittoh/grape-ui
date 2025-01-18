@@ -2,7 +2,7 @@
 PNPM = pnpm
 
 # Targets
-install:
+prepare:
 	$(PNPM) install
 
 dev:
@@ -23,4 +23,4 @@ test:
 clean:
 	rm -rf node_modules dist
 
-.PHONY: install dev build serve lint test clean
+.PHONY: prepare dev build serve lint test clean
