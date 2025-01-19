@@ -29,3 +29,9 @@ export async function claimCodes(codes: Code[], tag: string | undefined): Promis
     .then(response => response.ok)
     .catch(() => false);
 }
+
+export async function runDailies(amount: number = 0): Promise<boolean> {
+    return fetch(`/api/charger?amount=${amount}`)
+    .then(response => response.ok)
+    .catch(() => false);
+}

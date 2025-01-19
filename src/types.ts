@@ -23,3 +23,13 @@ export interface Attachment {
     
     codes: Code[] | null;
 }
+
+export interface Task {
+    ID: number;
+    CreatedAt: string;
+    UpdatedAt: string;
+    DeletedAt: string | null;
+
+    card: string;
+    amount: number;
+}
