@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/sorter': {
-        target: process.env.SORTER_INSTANCE,
+        target: process.env.SORTER_URL,
         headers: process.env.TOKEN ? { 'Authorization': process.env.TOKEN } : undefined,
         changeOrigin: true,
         rewrite: path => path.replace(/sorter\//, ''),
