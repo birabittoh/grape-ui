@@ -5,19 +5,19 @@ PNPM = pnpm
 prepare:
 	$(PNPM) install
 
-dev:
+dev: prepare
 	$(PNPM) run dev
 
-build:
+build: prepare
 	$(PNPM) run build
 
-serve:
+serve: prepare
 	$(PNPM) run preview
 
-lint:
+lint: prepare
 	$(PNPM) run lint
 
-test:
+test: prepare
 	$(PNPM) run test
 
 clean:
