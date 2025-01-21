@@ -18,16 +18,14 @@ function Codes() {
       .then(data => {
         setCodes(data);
 
-        if (tags.length === 0) {
-          // populate tags
-          const allTags = new Set<string>()
-          data.forEach((code: Code) => {
-            if (code.attachment) {
-              allTags.add(code.attachment.tag)
-            }
-          })
-          setTags(Array.from(allTags))
-        }
+        // populate tags
+        const allTags = new Set<string>()
+        data.forEach((code: Code) => {
+          if (code.attachment) {
+            allTags.add(code.attachment.tag)
+          }
+        })
+        setTags(Array.from(allTags))
       })
       .catch(error => console.error('Error fetching data:', error))
       .finally(() => setLoading(false))

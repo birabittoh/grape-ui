@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../App.css'
 import { Attachment } from '../types'
-import { formatBool } from '../common'
+import { formatAttachmentTag, formatBool } from '../common'
 import { getAmount, getWebsites, isDone, claimCodes } from '../utils'
 
 function Attachments() {
@@ -18,14 +18,12 @@ function Attachments() {
       .then(data => {
         setAttachments(data)
 
-        if (tags.length === 0) {
-          // populate tags
-          const allTags = new Set<string>()
-          data.forEach((attachment: Attachment) => {
-            allTags.add(attachment.tag)
-          })
-          setTags(Array.from(allTags))
-        }
+        // populate tags
+        const allTags = new Set<string>()
+        data.forEach((attachment: Attachment) => {
+          allTags.add(attachment.tag)
+        })
+        setTags(Array.from(allTags))
       })
       .catch(error => {
         console.error('Error fetching data:', error)
@@ -60,7 +58,6 @@ function Attachments() {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Amount</th>
                 <th>Website</th>
                 <th>Tag</th>
@@ -71,10 +68,9 @@ function Attachments() {
             <tbody>
               {attachments?.map(attachment => (
                 <tr key={attachment.ID}>
-                  <td>{attachment.ID}</td>
                   <td>{getAmount(attachment)}</td>
                   <td>{getWebsites(attachment)}</td>
-                  <td>{attachment?.tag}</td>
+                  <td>{formatAttachmentTag(attachment, tags)}</td>
                   <td>{formatBool(isDone(attachment))}</td>
                   <td>
                     {!isDone(attachment) && (

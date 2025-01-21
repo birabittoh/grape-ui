@@ -35,3 +35,12 @@ export async function runDailies(amount: number = 0): Promise<boolean> {
     .then(response => response.ok)
     .catch(() => false);
 }
+
+export async function changeTag(id: number, tag: string): Promise<boolean> {
+    return fetch(`/api/sorter/attachments/${id}`, {
+        method: 'POST',
+        body: new URLSearchParams({ tag })
+    })
+    .then(response => response.ok)
+    .catch(() => false);
+}
