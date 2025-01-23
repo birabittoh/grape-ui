@@ -20,7 +20,7 @@ function Attachments() {
 
         // populate tags
         const allTags = new Set<string>()
-        data.forEach((attachment: Attachment) => {
+        data?.forEach((attachment: Attachment) => {
           allTags.add(attachment.tag)
         })
         setTags(Array.from(allTags))
@@ -35,7 +35,8 @@ function Attachments() {
     <>
       <h1>Attachments</h1>
       <a href='/'>Dashboard</a><br />
-      <a href='/codes/'>Codes</a>
+      <a href='/codes/'>Codes</a><br />
+      <a href='/messages/'>Messages</a>
       <div className="card">
         <select value={tag} onChange={e => setTag(e.target.value)}>
           <option value="">Tag</option>
@@ -67,7 +68,7 @@ function Attachments() {
             </thead>
             <tbody>
               {attachments?.map(attachment => (
-                <tr key={attachment.ID}>
+                <tr key={attachment.id}>
                   <td>{getAmount(attachment)}</td>
                   <td>{getWebsites(attachment)}</td>
                   <td>{formatAttachmentTag(attachment, tags)}</td>

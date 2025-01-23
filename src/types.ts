@@ -1,8 +1,8 @@
 export interface Code {
-    ID: number;
-    CreatedAt: string;
-    UpdatedAt: string;
-    DeletedAt: string | null;
+    id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
 
     code: string;
     value: number;
@@ -13,10 +13,10 @@ export interface Code {
 }
 
 export interface Attachment {
-    ID: number;
-    CreatedAt: string;
-    UpdatedAt: string;
-    DeletedAt: string | null;
+    id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
 
     tag: string;
     filename: string;
@@ -25,11 +25,22 @@ export interface Attachment {
 }
 
 export interface Task {
-    ID: number;
-    CreatedAt: string;
-    UpdatedAt: string;
-    DeletedAt: string | null;
+    id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
 
     card: string;
     amount: number;
+}
+
+export interface Message {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+
+    from: string;
+    to: string;
+    content: string;
 }

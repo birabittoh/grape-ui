@@ -27,6 +27,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         codes: resolve(__dirname, 'codes/index.html'),
         attachments: resolve(__dirname, 'attachments/index.html'),
+        messages: resolve(__dirname, 'messages/index.html'),
       }
     }
   }

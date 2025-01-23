@@ -22,7 +22,7 @@ function App() {
         if (cards.length === 0) {
           // populate cards
           const allCards = new Set<string>()
-          data.forEach((task: Task) => {
+          data?.forEach((task: Task) => {
             allCards.add(task.card)
           })
           setCards(Array.from(allCards))
@@ -36,7 +36,8 @@ function App() {
     <>
       <h1>Dashboard</h1>
       <a href='/codes'>Codes</a><br />
-      <a href='/attachments/'>Attachments</a>
+      <a href='/attachments/'>Attachments</a><br />
+      <a href='/messages/'>Messages</a>
       <h2>
         You did {dailies} tasks today!
       </h2>
@@ -74,8 +75,8 @@ function App() {
             </thead>
             <tbody>
               {tasks.map(task => (
-                <tr key={task.ID}>
-                  <td>{task.CreatedAt}</td>
+                <tr key={task.id}>
+                  <td>{task.created_at}</td>
                   <td>{task.card}</td>
                   <td>{task.amount}</td>
                 </tr>

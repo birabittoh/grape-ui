@@ -20,7 +20,7 @@ function Codes() {
 
         // populate tags
         const allTags = new Set<string>()
-        data.forEach((code: Code) => {
+        data?.forEach((code: Code) => {
           if (code.attachment) {
             allTags.add(code.attachment.tag)
           }
@@ -35,7 +35,8 @@ function Codes() {
     <>
       <h1>Codes</h1>
       <a href='/'>Dashboard</a><br />
-      <a href='/attachments/'>Attachments</a>
+      <a href='/attachments/'>Attachments</a><br />
+      <a href='/messages/'>Messages</a>
       <div className="card">
         <select value={tag} onChange={e => setTag(e.target.value)}>
           <option value="">Tag</option>
@@ -67,7 +68,7 @@ function Codes() {
             </thead>
             <tbody>
               {codes.map(code => (
-                <tr key={code.ID}>
+                <tr key={code.id}>
                   <td>{code.value}</td>
                   <td>{code.website}</td>
                   <td>{code.attachment?.tag}</td>
