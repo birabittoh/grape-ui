@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import '../App.css'
 import { Message } from '../types'
 import { formatDate } from '../common'
+import App from '../App'
 
 function Messages() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -23,16 +23,16 @@ function Messages() {
         })
         setTags(Array.from(allTags))
       })
-      .catch(error => console.error('Error fetching data:', error))
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        alert('Error fetching data: ' + error)
+      })
       .finally(() => setLoading(false))
   }, [to])
 
   return (
     <>
-      <h1>Codes</h1>
-      <a href='/'>Dashboard</a><br />
-      <a href='/attachments/'>Attachments</a><br />
-      <a href='/codes/'>Codes</a>
+      <App title='Messages' />
       <div className="card">
         <select value={to} onChange={e => setTo(e.target.value)}>
           <option value="">To</option>

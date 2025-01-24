@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import '../App.css'
 import { Code } from '../types'
 import { formatBool } from '../common'
 import { claimCodes } from '../utils'
+import App from '../App'
 
 function Codes() {
   const [codes, setCodes] = useState<Code[]>([])
@@ -27,16 +27,16 @@ function Codes() {
         })
         setTags(Array.from(allTags))
       })
-      .catch(error => console.error('Error fetching data:', error))
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        alert('Error fetching data: ' + error)
+      })
       .finally(() => setLoading(false))
   }, [tag, done])
 
   return (
     <>
-      <h1>Codes</h1>
-      <a href='/'>Dashboard</a><br />
-      <a href='/attachments/'>Attachments</a><br />
-      <a href='/messages/'>Messages</a>
+      <App title='Codes' />
       <div className="card">
         <select value={tag} onChange={e => setTag(e.target.value)}>
           <option value="">Tag</option>

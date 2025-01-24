@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import '../App.css'
 import { Attachment } from '../types'
 import { formatAttachmentTag, formatBool } from '../common'
 import { getAmount, getWebsites, isDone, claimCodes } from '../utils'
+import App from '../App'
 
 function Attachments() {
   const [attachments, setAttachments] = useState<Attachment[]>([])
@@ -27,16 +27,14 @@ function Attachments() {
       })
       .catch(error => {
         console.error('Error fetching data:', error)
+        alert('Error fetching data: ' + error)
       })
       .finally(() => setLoading(false))
   }, [tag, done])
 
   return (
     <>
-      <h1>Attachments</h1>
-      <a href='/'>Dashboard</a><br />
-      <a href='/codes/'>Codes</a><br />
-      <a href='/messages/'>Messages</a>
+      <App title='Attachments' />
       <div className="card">
         <select value={tag} onChange={e => setTag(e.target.value)}>
           <option value="">Tag</option>
