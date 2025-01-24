@@ -44,3 +44,9 @@ export async function changeTag(id: number, tag: string): Promise<boolean> {
     .then(response => response.ok)
     .catch(() => false);
 }
+
+export async function refresh(): Promise<void> {
+    return fetch(`/api/sorter/refresh`, {method: 'POST'})
+    .then(() => setTimeout(() => window.location.reload(), 2000) && undefined)
+;
+}

@@ -33,7 +33,6 @@ function Messages() {
   return (
     <>
       <App title='Messages' />
-      <div className="card">
         <select value={to} onChange={e => setTo(e.target.value)}>
           <option value="">To</option>
           <optgroup>
@@ -45,28 +44,29 @@ function Messages() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Created</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Content</th>
-              </tr>
-            </thead>
-            <tbody>
-              {messages.map(message => (
-                <tr key={message.id}>
-                  <td>{formatDate(message.created_at)}</td>
-                  <td>{message.from}</td>
-                  <td>{message.to}</td>
-                  <td>{message.content}</td>
+          <div className='responsive-table'>
+            <table>
+              <thead>
+                <tr>
+                  <th>Created</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Content</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {messages.map(message => (
+                  <tr key={message.id}>
+                    <td>{formatDate(message.created_at)}</td>
+                    <td>{message.from}</td>
+                    <td>{message.to}</td>
+                    <td>{message.content}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </div>
     </>
   )
 }

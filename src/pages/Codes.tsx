@@ -56,32 +56,34 @@ function Codes() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Value</th>
-                <th>Website</th>
-                <th>Tag</th>
-                <th>Done</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {codes.map(code => (
-                <tr key={code.id}>
-                  <td>{code.value}</td>
-                  <td>{code.website}</td>
-                  <td>{code.attachment?.tag}</td>
-                  <td>{formatBool(code.done)}</td>
-                  <td>
-                    {!code.done && (
-                      <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes([code], code.attachment?.tag) }}>Claim</a>
-                    )}
-                  </td>
+          <div className='responsive-table'>
+            <table>
+              <thead>
+                <tr>
+                  <th>Value</th>
+                  <th>Website</th>
+                  <th>Tag</th>
+                  <th>Done</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {codes.map(code => (
+                  <tr key={code.id}>
+                    <td>{code.value}</td>
+                    <td>{code.website}</td>
+                    <td>{code.attachment?.tag}</td>
+                    <td>{formatBool(code.done)}</td>
+                    <td>
+                      {!code.done && (
+                        <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes([code], code.attachment?.tag) }}>Claim</a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </>

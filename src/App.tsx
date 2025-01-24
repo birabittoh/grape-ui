@@ -1,4 +1,4 @@
-import './App.css'
+import { refresh } from './utils';
 
 const navBar = [
     { href: '/attachments/', text: 'Attachments' },
@@ -9,9 +9,12 @@ const navBar = [
 
 const App = ({ title }: { title: string }) => (
     <>
-        {navBar.map(({ href, text }) => (
-            <a key={href} href={title === text ? "#" : href} className='nav-link'>{text}</a>
-        ))}
+        <div className='nav'>
+            {navBar.map(({ href, text }) => (
+                <a key={href} href={title === text ? "#" : href} className='nav-link'>{text}</a>
+            ))}
+            <button className="nav-link" onClick={async () => refresh()}>Refresh</button>
+        </div>
         
         <h1>{title}</h1>
     </>

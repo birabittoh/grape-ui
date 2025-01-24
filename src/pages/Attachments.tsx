@@ -35,7 +35,6 @@ function Attachments() {
   return (
     <>
       <App title='Attachments' />
-      <div className="card">
         <select value={tag} onChange={e => setTag(e.target.value)}>
           <option value="">Tag</option>
           <optgroup>
@@ -54,34 +53,35 @@ function Attachments() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Amount</th>
-                <th>Website</th>
-                <th>Tag</th>
-                <th>Done</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attachments?.map(attachment => (
-                <tr key={attachment.id}>
-                  <td>{getAmount(attachment)}</td>
-                  <td>{getWebsites(attachment)}</td>
-                  <td>{formatAttachmentTag(attachment, tags)}</td>
-                  <td>{formatBool(isDone(attachment))}</td>
-                  <td>
-                    {!isDone(attachment) && (
-                      <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes(attachment?.codes ?? [], attachment?.tag) }}>Claim</a>
-                    )}
-                    </td>
+          <div className='responsive-table'>
+            <table>
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Website</th>
+                  <th>Tag</th>
+                  <th>Done</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {attachments?.map(attachment => (
+                  <tr key={attachment.id}>
+                    <td>{getAmount(attachment)}</td>
+                    <td>{getWebsites(attachment)}</td>
+                    <td>{isDone(attachment) ? attachment.tag : formatAttachmentTag(attachment, tags)}</td>
+                    <td>{formatBool(isDone(attachment))}</td>
+                    <td>
+                      {!isDone(attachment) && (
+                        <a href='#' onClick={async (e) => { e.preventDefault(); await claimCodes(attachment?.codes ?? [], attachment?.tag) }}>Claim</a>
+                      )}
+                      </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </div>
     </>
   )
 }

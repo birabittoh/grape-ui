@@ -65,24 +65,26 @@ function Tasks() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Created</th>
-                <th>Card</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.map(task => (
-                <tr key={task.id}>
-                  <td>{task.created_at}</td>
-                  <td>{task.card}</td>
-                  <td>{task.amount}</td>
+          <div className='responsive-table'>
+            <table>
+              <thead>
+                <tr>
+                  <th>Created</th>
+                  <th>Card</th>
+                  <th>Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {tasks.map(task => (
+                  <tr key={task.id}>
+                    <td>{task.created_at}</td>
+                    <td>{task.card}</td>
+                    <td>{task.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </>
