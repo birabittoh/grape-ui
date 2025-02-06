@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Message } from '../types'
 import { formatDate } from '../common'
 import App from '../App'
+import { getTags } from '../utils'
 
 function Messages() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -16,12 +17,7 @@ function Messages() {
       .then(data => {
         setMessages(data);
 
-        // populate tags
-        const allTags = new Set<string>()
-        data?.forEach((message: Message) => {
-            allTags.add(message.to)
-        })
-        setTags(Array.from(allTags))
+        getTags().then(setTags);
       })
       .catch(error => {
         console.error('Error fetching data:', error)

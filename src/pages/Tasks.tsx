@@ -48,7 +48,7 @@ function Tasks() {
       }}>Do them</button>
       <div className="card">
         <select value={card} onChange={e => setCard(e.target.value)}>
-          <option value="">Tag</option>
+          <option value="">Card</option>
           <optgroup>
             {cards.map(card => (
               <option value={card}>{card}</option>

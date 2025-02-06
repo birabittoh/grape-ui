@@ -50,3 +50,9 @@ export async function refresh(): Promise<void> {
     .then(() => setTimeout(() => window.location.reload(), 2000) && undefined)
 ;
 }
+
+export async function getTags(): Promise<string[]> {
+    return fetch('/api/tags')
+    .then(response => response.json())
+    .catch(() => []);
+}

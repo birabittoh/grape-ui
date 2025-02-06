@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Attachment } from '../types'
 import { formatAttachmentTag, formatBool } from '../common'
-import { getAmount, getWebsites, isDone, claimCodes } from '../utils'
+import { getAmount, getWebsites, isDone, claimCodes, getTags } from '../utils'
 import App from '../App'
 
 function Attachments() {
@@ -17,13 +17,8 @@ function Attachments() {
       .then(response => response.json())
       .then(data => {
         setAttachments(data)
-
-        // populate tags
-        const allTags = new Set<string>()
-        data?.forEach((attachment: Attachment) => {
-          allTags.add(attachment.tag)
-        })
-        setTags(Array.from(allTags))
+        
+        getTags().then(setTags)
       })
       .catch(error => {
         console.error('Error fetching data:', error)

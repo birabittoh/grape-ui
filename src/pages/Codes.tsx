@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Code } from '../types'
 import { formatBool } from '../common'
-import { claimCodes } from '../utils'
+import { claimCodes, getTags } from '../utils'
 import App from '../App'
 
 function Codes() {
@@ -18,14 +18,7 @@ function Codes() {
       .then(data => {
         setCodes(data);
 
-        // populate tags
-        const allTags = new Set<string>()
-        data?.forEach((code: Code) => {
-          if (code.attachment) {
-            allTags.add(code.attachment.tag)
-          }
-        })
-        setTags(Array.from(allTags))
+        getTags().then(setTags);
       })
       .catch(error => {
         console.error('Error fetching data:', error)
